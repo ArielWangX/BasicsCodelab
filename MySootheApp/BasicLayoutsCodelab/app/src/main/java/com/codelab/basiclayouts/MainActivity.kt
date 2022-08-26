@@ -43,16 +43,18 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SearchBar()
-            AlignYourBodyElement(
-                drawable = R.drawable.ab1_inversions,
-                text =  R.string.ab1_inversions
-            )
-            FavoriteCollectionCard(
-                drawable = R.drawable.fc2_nature_meditations,
-                text = R.string.fc2_nature_meditations,
-                modifier = Modifier.padding(8.dp)
-            )
+            MySootheTheme {
+                SearchBar()
+                AlignYourBodyElement(
+                    drawable = R.drawable.ab1_inversions,
+                    text = R.string.ab1_inversions
+                )
+                FavoriteCollectionCard(
+                    drawable = R.drawable.fc2_nature_meditations,
+                    text = R.string.fc2_nature_meditations,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
         }
     }
 }
