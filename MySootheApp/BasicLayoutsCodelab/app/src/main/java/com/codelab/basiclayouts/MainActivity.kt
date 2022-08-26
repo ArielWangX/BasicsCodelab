@@ -22,7 +22,11 @@ import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -54,6 +58,7 @@ class MainActivity : ComponentActivity() {
                     text = R.string.fc2_nature_meditations,
                     modifier = Modifier.padding(8.dp)
                 )
+                AlignYourBodyRow()
             }
         }
     }
@@ -151,7 +156,15 @@ fun FavoriteCollectionCard(
 fun AlignYourBodyRow(
     modifier: Modifier = Modifier
 ) {
-    // Implement composable here
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        modifier = Modifier
+    ) {
+        items(alignYourBodyData) { item ->
+            AlignYourBodyElement(drawable = item.drawable, text = item.text)
+        }
+    }
 }
 
 // Step: Favorite collections grid - LazyGrid
