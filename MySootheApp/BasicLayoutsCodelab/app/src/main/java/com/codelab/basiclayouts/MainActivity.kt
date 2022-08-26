@@ -21,8 +21,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
@@ -52,17 +51,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MySootheTheme {
-                SearchBar()
-                AlignYourBodyElement(
-                    drawable = R.drawable.ab1_inversions,
-                    text = R.string.ab1_inversions
-                )
-                FavoriteCollectionCard(
-                    drawable = R.drawable.fc2_nature_meditations,
-                    text = R.string.fc2_nature_meditations,
-                    modifier = Modifier.padding(8.dp)
-                )
-                AlignYourBodyRow()
+                HomeScreen()
             }
         }
     }
@@ -77,6 +66,7 @@ fun SearchBar(
         value = "",
         onValueChange = {},
         modifier = Modifier
+            .padding(horizontal = 16.dp)
             .fillMaxWidth()
             .heightIn(min = 56.dp),
         leadingIcon = {
@@ -214,7 +204,21 @@ fun HomeSection(
 // Step: Home screen - Scrolling
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    // Implement composable here
+    Column(
+        modifier = Modifier
+            . verticalScroll(rememberScrollState())
+            . padding(vertical = 16.dp)
+    ) {
+//        Spacer(modifier = Modifier.height(16.dp))
+        SearchBar()
+        HomeSection(title = R.string.align_your_body) {
+            AlignYourBodyRow()
+        }
+        HomeSection(title = R.string.favorite_collections) {
+            FavoriteCollectionsGrid()
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+    }
 }
 
 // Step: Bottom navigation - Material
@@ -304,7 +308,7 @@ fun HomeSectionPreview() {
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2, heightDp = 180)
 @Composable
 fun ScreenContentPreview() {
     MySootheTheme { HomeScreen() }
