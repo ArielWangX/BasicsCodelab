@@ -9,3 +9,10 @@ https://developer.android.com/codelabs/jetpack-compose-layouts?continue=https%3A
 
 https://user-images.githubusercontent.com/109891752/187604538-136b8ef8-56f1-4b0d-b9ff-ea5f8c4e76bc.mp4
 
+
+
+2. Build an app with an onboarding screen, and a list of animated expanding items:
+
+
+https://user-images.githubusercontent.com/109891752/187802342-146de86d-a5f1-4ca9-9e14-1a61f7795872.mp4
+
