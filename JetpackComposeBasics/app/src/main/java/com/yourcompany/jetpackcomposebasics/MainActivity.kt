@@ -86,7 +86,7 @@ private fun Greeting(name: String) {
 
 @Composable
 private fun CardContent(name: String) {
-    var expanded by remember { mutableStateOf(false) }
+    var expanded by rememberSaveable { mutableStateOf(false) }
 
     Row(
         modifier = Modifier
