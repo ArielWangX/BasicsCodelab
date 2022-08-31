@@ -1,4 +1,4 @@
-package com.yourcompany.basicscodelab
+package com.yourcompany.jetpackcomposebasics
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
@@ -22,13 +22,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.yourcompany.basicscodelab.ui.theme.BasicsCodelabTheme
+import com.yourcompany.jetpackcomposebasics.ui.theme.JetpackComposeBasicsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            BasicsCodelabTheme {
+            JetpackComposeBasicsTheme {
                 MyApp()
             }
         }
@@ -37,32 +37,36 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun MyApp() {
-    var shouldShowOnBoarding by rememberSaveable { mutableStateOf(true)}
+    var shouldShowOnboarding by rememberSaveable { mutableStateOf(true)}
 
-    if (shouldShowOnBoarding) {
-        OnboardingScreen()
+    if (shouldShowOnboarding) {
+        OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
     } else {
         Greetings()
     }
-
 }
 
 @Composable
-private fun OnboardingScreen() {
+private fun OnboardingScreen(onContinueClicked: () -> Unit) {
     Surface {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Welcome to the Basics Codelab!")
-
+            Text("Welcome to the Basics Codelab!")
+            Button(
+                modifier = Modifier.padding(vertical = 24.dp),
+                onClick = onContinueClicked
+            ) {
+                Text("Continue")
+            }
         }
     }
 }
 
 @Composable
-private fun Greetings(names: List<String> = List(1000) { "$it" }) {
+private fun Greetings(names: List<String> = List(1000) { "$it" } ) {
     LazyColumn(modifier = Modifier.padding(vertical = 4.dp)) {
         items(items = names) { name ->
             Greeting(name = name)
@@ -76,13 +80,13 @@ private fun Greeting(name: String) {
         backgroundColor = MaterialTheme.colors.primary,
         modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
-        CardContent(name = name)
+        CardContent(name)
     }
 }
 
 @Composable
 private fun CardContent(name: String) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(false) }
 
     Row(
         modifier = Modifier
@@ -99,7 +103,7 @@ private fun CardContent(name: String) {
                 .weight(1f)
                 .padding(12.dp)
         ) {
-            Text(text = "Hello,")
+            Text(text = "Hello, ")
             Text(
                 text = name,
                 style = MaterialTheme.typography.h4.copy(
@@ -109,11 +113,10 @@ private fun CardContent(name: String) {
             if (expanded) {
                 Text(
                     text = ("Composem ipsum color sit lazy, " +
-                            "padding theme elit, sed do bouncy. ").repeat(4)
+                            "padding theme elit, sed do bouncy. ").repeat(4),
                 )
             }
         }
-
         IconButton(onClick = { expanded = !expanded }) {
             Icon(
                 imageVector = if (expanded) Filled.ExpandLess else Filled.ExpandMore,
@@ -126,8 +129,6 @@ private fun CardContent(name: String) {
             )
         }
     }
-
-
 }
 
 @Preview(
@@ -136,11 +137,10 @@ private fun CardContent(name: String) {
     uiMode = UI_MODE_NIGHT_YES,
     name = "DefaultPreviewDark"
 )
-
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun DefaultPreview() {
-    BasicsCodelabTheme {
+    JetpackComposeBasicsTheme() {
         Greetings()
     }
 }
@@ -148,7 +148,7 @@ fun DefaultPreview() {
 @Preview(showBackground = true, widthDp = 320, heightDp = 320)
 @Composable
 fun OnboardingPreview() {
-    BasicsCodelabTheme {
-        //OnboardingScreen()
+    JetpackComposeBasicsTheme {
+        OnboardingScreen(onContinueClicked = {})
     }
 }
